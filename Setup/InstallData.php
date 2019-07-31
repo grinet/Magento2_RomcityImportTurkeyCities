@@ -136,33 +136,33 @@ class InstallData implements InstallDataInterface
 
 
 
-		foreach ($data as $row) {
-			$region_name = $row[2];
-			$bind = ['country_id' => $row[0], 'code' => $row[1], 'default_name' => $this->tr2en($region_name)];
-			$setup->getConnection()->insert($setup->getTable('directory_country_region'), $bind);
+//		foreach ($data as $row) {
+//			$region_name = $row[2];
+//			$bind = ['country_id' => $row[0], 'code' => $row[1], 'default_name' => $this->tr2en($region_name)];
+//			$setup->getConnection()->insert($setup->getTable('directory_country_region'), $bind);
+//
+//			$regionId = $setup->getConnection()->lastInsertId($setup->getTable('directory_country_region'));
+//
+//			foreach ($this->lang_codes as $lang_code) 
+//			{    
+//				if ($lang_code != 'tr_TR') {
+//					$region_name = $this->tr2en($region_name);
+//				} // if sonu
+//				
+//				$bind = ['locale' => $lang_code, 'region_id' => $regionId, 'name' => $region_name];
+//				$setup->getConnection()->insert($setup->getTable('directory_country_region_name'), $bind);
+//
+//			} // foreach sonu
+//		} // foreach sonu
 
-			$regionId = $setup->getConnection()->lastInsertId($setup->getTable('directory_country_region'));
-
-			foreach ($this->lang_codes as $lang_code) 
-			{    
-				if ($lang_code != 'tr_TR') {
-					$region_name = $this->tr2en($region_name);
-				} // if sonu
-				
-				$bind = ['locale' => $lang_code, 'region_id' => $regionId, 'name' => $region_name];
-				$setup->getConnection()->insert($setup->getTable('directory_country_region_name'), $bind);
-
-			} // foreach sonu
-		} // foreach sonu
-
-
-		$table_region		= $installer->getTable('directory_country_region');
-		$table_region_name	= $installer->getTable('directory_country_region_name');
-		$table_city			= $installer->getTable('eadesign_romcity');
 
 		//Update attribute sort order
 		$conn	= $setup->getConnection();
 		$db		= $conn->getConfig();
+
+		$table_region		= $setup->getTable('directory_country_region');
+		$table_region_name	= $setup->getTable('directory_country_region_name');
+		$table_city			= $setup->getTable('eadesign_romcity');
 
 		$sql="ALTER TABLE $table_city ADD COLUMN city_code VARCHAR(16) NULL AFTER region_id;";$conn->query($sql);
 		$sql="ALTER TABLE $table_city ADD KEY CITY_CODE (city_code);";$conn->query($sql);
@@ -200,7 +200,7 @@ class InstallData implements InstallDataInterface
 			foreach ($reg['ilceler'] as $ilce) 
 			{
 				$ilce_kodu++;
-				$sql="INSERT INTO $table_city (`entity_id`, `region_id`, `city`) VALUES (null, '".$region_id."', '".$region_code."-".$ilce_kodu."', '".$ilce."');";
+				$sql="INSERT INTO $table_city (`entity_id`, `region_id`, `city_code`, `city`) VALUES (null, '".$region_id."', '".$region_code."-".$ilce_kodu."', '".$ilce."');";
 				$data = $conn->query($sql);
 			} // foreach sonu
 
