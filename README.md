@@ -80,4 +80,8 @@ Please send errors to info@grinet.com.tr ...
 ### [Grinet Turkpay - Magento1 Banka Sanal Pos Modülü](https://magesanalpos.com/grinet-turkpay-magento-icin-sanal-pos-modulu)
 ### [Grinet Turkpay Pro - Magento1 Banka Sanal Pos ve Açıktan Tahsilat Modülü](https://magesanalpos.com/grinet-turkpay-magento-icin-sanal-pos-modulu-pro)
 
+## PHP compatibility
 
+PHP 8.5 syntax and PHPCompatibility static checks were run on this release. Existing minimum PHP requirements are retained. Use a Magento release that supports your PHP runtime; syntax/static checks alone do not verify installation, DI compilation or storefront/admin behavior.
+
+Mage-OS support also depends on the separately installed EaDesign Romcity extension; it has not been verified. Existing setup SQL and setup versions are unchanged.
